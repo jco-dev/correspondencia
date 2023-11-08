@@ -2,6 +2,9 @@
 
 namespace Config;
 
+use App\Validation\VerificarUniqueCelularEditar;
+use App\Validation\VerificarUniqueCiEditar;
+use App\Validation\VerificarUniqueEmailEditar;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Validation\StrictRules\CreditCardRules;
 use CodeIgniter\Validation\StrictRules\FileRules;
@@ -25,6 +28,9 @@ class Validation extends BaseConfig
         FormatRules::class,
         FileRules::class,
         CreditCardRules::class,
+        VerificarUniqueCiEditar::class,
+        VerificarUniqueEmailEditar::class,
+        VerificarUniqueCelularEditar::class
     ];
 
     /**

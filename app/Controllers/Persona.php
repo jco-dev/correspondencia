@@ -105,7 +105,7 @@ class Persona extends BaseController
             'estado' => 'REGISTRADO'
         ]);
 
-        if ($id_persona) {
+        if (is_numeric($id_persona)) {
             $usuarioModel = model('App\Models\UsuarioModel');
             $data_usuario = [
                 'id_usuario' => $id_persona,
@@ -115,12 +115,8 @@ class Persona extends BaseController
                 'estado' => 'ACTIVO'
             ];
 
-            $respuesta = $usuarioModel->save($data_usuario);
-
-            if ($respuesta)
-                return $this->response->setJSON(['exito' => true, 'msg' => 'Se registró correctamente la persona']);
-            else
-                return $this->response->setJSON(['exito' => false, 'msg' => 'No se pudo registrar la persona']);
+            $respuesta = $usuarioModel->insert($data_usuario);
+            return $this->response->setJSON(['exito' => true, 'msg' => 'Se registró correctamente la persona']);
         } else {
             return $this->response->setJSON(['exito' => false, 'msg' => 'No se pudo registrar la persona']);
         }

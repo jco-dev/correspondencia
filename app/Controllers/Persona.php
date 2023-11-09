@@ -73,7 +73,10 @@ class Persona extends BaseController
             return $this->response->setJSON(['exito' => false]);
     }
 
-    public function store()
+    /**
+     * @throws ReflectionException
+     */
+    public function store(): ResponseInterfaceAlias
     {
         $validation = \Config\Services::validation();
         $validation->setRules([
@@ -137,7 +140,10 @@ class Persona extends BaseController
         return $this->response->setJSON(['vista' => $vista]);
     }
 
-    public function update()
+    /**
+     * @throws ReflectionException
+     */
+    public function update(): ResponseInterfaceAlias
     {
         $validation = \Config\Services::validation();
         $validation->setRules([

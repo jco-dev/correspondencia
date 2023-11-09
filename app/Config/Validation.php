@@ -5,6 +5,7 @@ namespace Config;
 use App\Validation\VerificarUniqueCelularEditar;
 use App\Validation\VerificarUniqueCiEditar;
 use App\Validation\VerificarUniqueEmailEditar;
+use App\Validation\VerificarUniqueNombreOficinaEditar;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Validation\StrictRules\CreditCardRules;
 use CodeIgniter\Validation\StrictRules\FileRules;
@@ -30,7 +31,8 @@ class Validation extends BaseConfig
         CreditCardRules::class,
         VerificarUniqueCiEditar::class,
         VerificarUniqueEmailEditar::class,
-        VerificarUniqueCelularEditar::class
+        VerificarUniqueCelularEditar::class,
+        VerificarUniqueNombreOficinaEditar::class
     ];
 
     /**

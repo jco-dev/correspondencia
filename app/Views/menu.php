@@ -16,7 +16,7 @@
             </a>
         </li>
         <li>
-            <a href="file-manager.html">
+            <a href="<?= base_url(route_to('listado-oficinas')) ?>">
                 <i class="material-icons-two-tone">home</i>
                 Oficinas
             </a>

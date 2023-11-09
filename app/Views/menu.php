@@ -12,7 +12,7 @@
         <li>
             <a href="<?= base_url(route_to('listado-personas')) ?>">
                 <i class="material-icons-two-tone">person</i>
-                Usuarios
+                Personas
             </a>
         </li>
         <li>
@@ -22,8 +22,15 @@
             </a>
         </li>
 
+        <li>
+            <a href="<?= base_url(route_to('listado-asignacion')) ?>">
+                <i class="material-icons-two-tone">calendar_today</i>
+                Cargos en Oficinas
+            </a>
+        </li>
+
         <li class="sidebar-title">
-            UI Elements
+            ARCHIVOS
         </li>
         <li>
             <a href="#"><i class="material-icons-two-tone">color_lens</i>Styles<i

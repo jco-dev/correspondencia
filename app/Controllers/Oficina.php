@@ -99,7 +99,6 @@ class Oficina extends BaseController
         return $this->response->setJSON(['vista' => $vista]);
     }
 
-
     /**
      * @throws ReflectionException
      */

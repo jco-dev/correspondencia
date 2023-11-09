@@ -25,5 +25,14 @@ $routes->post('registro-oficina', 'Oficina::store', ['as' => 'registro-oficina']
 $routes->post('editar-oficina', 'Oficina::edit', ['as' => 'editar-oficina']);
 $routes->post('actualizar-oficina', 'Oficina::update', ['as' => 'actualizar-oficina']);
 
+// Rutas para asignacion de oficinas
+$routes->get('listado-asignacion-oficinas', 'AsignacionOficina::index', ['as' => 'listado-asignacion']);
+$routes->get('listado-asignacion-ajax', 'AsignacionOficina::listadoAsignacionAjax', ['as' => 'listado-asignacion-ajax']);
+$routes->post('crear-asignacion', 'AsignacionOficina::vistaAgregar', ['as' => 'crear-asignacion']);
+$routes->post('registro-asignacion', 'AsignacionOficina::store', ['as' => 'registro-asignacion']);
+$routes->post('editar-asignacion', 'AsignacionOficina::edit', ['as' => 'editar-asignacion']);
+$routes->post('actualizar-asignacion', 'AsignacionOficina::update', ['as' => 'actualizar-asignacion']);
+$routes->post('finalizar-asignacion', 'AsignacionOficina::finalizar', ['as' => 'finalizar-asignacion']);
+
 
 

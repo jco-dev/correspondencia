@@ -35,4 +35,8 @@ $routes->post('actualizar-asignacion', 'AsignacionOficina::update', ['as' => 'ac
 $routes->post('finalizar-asignacion', 'AsignacionOficina::finalizar', ['as' => 'finalizar-asignacion']);
 
 
+// login
+$routes->get('login', 'Auth::index', ['as' => 'login']);
+$routes->post('login', 'Auth::autenticar', ['as' => 'procesar-login']);
+
 

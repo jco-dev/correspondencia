@@ -15,3 +15,17 @@
     </div>
 </div>
 <?php $this->endSection() ?>
+
+<?php $this->section('js') ?>
+<script>
+    <?php if (session()->getFlashdata('success')): ?>
+    Swal.fire({
+        icon: 'success',
+        title: '<?= session()->getFlashdata("success") ?>',
+        timer: 3000,
+        confirmButton: false
+    });
+    <?php endif; ?>
+</script>
+<?php $this->endSection() ?>
+

@@ -26,11 +26,11 @@ class Auth extends BaseController
                 $persona = model('PersonaModel')->find($usuario->id_usuario);
 
                 $session->set([
-                    'id'        => $persona->id_persona,
-                    'nombre'    => $persona->nombre,
-                    'paterno'   => $persona->paterno,
-                    'materno'   => $persona->materno,
-                    'rol'       => $usuario->rol,
+                    'id' => $persona->id_persona,
+                    'nombre' => $persona->nombre,
+                    'paterno' => $persona->paterno,
+                    'materno' => $persona->materno,
+                    'rol' => $usuario->rol,
                     'logged_in' => true
                 ]);
 
@@ -44,6 +44,45 @@ class Auth extends BaseController
             $session->setFlashdata('error', 'El nombre de usuario o la contraseña son incorrectos');
             return redirect()->to(base_url(route_to('login')));
         }
+    }
+
+    public function salir(): \CodeIgniter\HTTP\RedirectResponse
+    {
+        session()->destroy();
+        return redirect()->to(base_url(route_to('login')));
+    }
+
+    public function vistaCambiarClave(): \CodeIgniter\HTTP\ResponseInterface
+    {
+        $vista = view('auth/cambiarClave');
+        return $this->response->setJSON(['vista' => $vista]);
+    }
+
+    public function actualizarClaveUsuario(): \CodeIgniter\HTTP\ResponseInterface
+    {
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'clave_actual' => 'required|is_clave_actual_valido[usuarios.clave]',
+            'clave_nueva' => 'required|min_length[6]',
+            'clave_confirmar' => 'required|matches[clave_nueva]',
+        ]);
+
+        if (!$validation->withRequest($this->request)->run()) {
+            return $this->response->setJSON(['validacion' => $validation->getErrors()]);
+        }
+
+        $usuarioModel = model('UsuarioModel');
+        $respuesta = $usuarioModel->update(
+            session()->get('id'),
+            [
+                'clave' => password_hash(trim($this->request->getVar('clave_nueva')), PASSWORD_DEFAULT),
+            ]
+        );
+
+        if ($respuesta)
+            return $this->response->setJSON(['exito' => true, 'msg' => 'Se actualizó correctamente la clave']);
+        else
+            return $this->response->setJSON(['exito' => false, 'msg' => 'No se pudo actualizar la clave']);
 
     }
 }

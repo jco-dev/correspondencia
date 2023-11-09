@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Validation\ClaveValidaActual;
 use App\Validation\VerificarUniqueCelularEditar;
 use App\Validation\VerificarUniqueCiEditar;
 use App\Validation\VerificarUniqueEmailEditar;
@@ -32,7 +33,8 @@ class Validation extends BaseConfig
         VerificarUniqueCiEditar::class,
         VerificarUniqueEmailEditar::class,
         VerificarUniqueCelularEditar::class,
-        VerificarUniqueNombreOficinaEditar::class
+        VerificarUniqueNombreOficinaEditar::class,
+        ClaveValidaActual::class,
     ];
 
     /**

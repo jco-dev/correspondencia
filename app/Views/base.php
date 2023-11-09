@@ -48,9 +48,9 @@
             <div class="sidebar-user-switcher user-activity-online">
                 <a href="#">
                     <div class="avatar avatar-xs">
-                        <div class="avatar-title">JC</div>
+                        <div class="avatar-title"><?= substr(session()->get('nombre'), 0, 1) ?></div>
                     </div>
-                    <span class="user-info-text mt-2"> &nbsp; Juan Carlos</span>
+                    <span class="user-info-text mt-2"> &nbsp; <?= session()->get('nombre') ?></span>
                 </a>
             </div>
         </div>
@@ -75,14 +75,19 @@
                                 <a class="nav-link language-dropdown-toggle" href="#" id="languageDropDown"
                                    data-bs-toggle="dropdown">
                                     <div class="avatar avatar-xs">
-                                        <div class="avatar-title">JC</div>
+                                        <div class="avatar-title"><?= substr(session()->get('nombre'), 0, 1) ?></div>
                                     </div>
-                                    <span class="user-info-text mt-2"> &nbsp; Juan Carlos</span>
+                                    <span class="user-info-text mt-2"> &nbsp; <?= session()->get('nombre') ?></span>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end language-dropdown"
                                     aria-labelledby="languageDropDown">
                                     <li>
-                                        <a class="dropdown-item" href="#">Cerrar Sesión</a>
+                                        <a class="dropdown-item cambiar-clave"
+                                           href="<?= base_url(route_to('cambiar-clave')) ?>">Cambiar Contraseña</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="<?= base_url(route_to('cerrar-sesion')) ?>">Cerrar
+                                            Sesión</a>
                                     </li>
                                 </ul>
                             </li>
@@ -97,6 +102,18 @@
                     <?php $this->renderSection('content'); ?>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" id="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
         </div>
     </div>
 </div>
@@ -128,6 +145,69 @@
 
         $(idModal).modal('show');
     };
+
+    $('.cambiar-clave').on('click', (e) => {
+        e.preventDefault();
+        $.get('vista-cambiar-password', function (data) {
+            $('#modal .modal-body').html(data.vista);
+            parametrosModal("#modal", "Cambiar Contraseña", "", false, 'static');
+            $('#frm-cambiar-clave').on('submit', function (e) {
+                e.preventDefault();
+                let datos = $(this).serialize();
+                $.ajax({
+                    url: 'actualizar-clave',
+                    type: 'POST',
+                    data: datos,
+                    success: function (data) {
+                        if (data.exito) {
+                            $('#modal').modal('hide');
+                            $('#frm-cambiar-clave').trigger('reset');
+                            Swal.fire({
+                                title: "EXITO",
+                                text: data.msg,
+                                icon: "success",
+                                showConfirmButton: true,
+                                confirmButtonText: "Aceptar"
+                            });
+                        }
+
+                        if (data.validacion) {
+                            $('#frm-cambiar-clave input').removeClass('is-invalid');
+
+                            let errorList = '<ul>';
+                            for (let [key, value] of Object.entries(data.validacion)) {
+                                $(`#${key}`).addClass('is-invalid');
+                                errorList += `<li>${value}</li>`;
+                            }
+                            errorList += '</ul>';
+
+                            Swal.fire({
+                                title: "¡ADVERTENCIA!",
+                                html: errorList,
+                                icon: "warning",
+                                showConfirmButton: true,
+                            });
+                        }
+
+                        if (data.exito == false) {
+                            $('#modal').modal('hide');
+                            $('#frm-cambiar-clave').trigger('reset');
+                            Swal.fire({
+                                title: "¡ERROR!",
+                                text: data.msg,
+                                icon: "error",
+                                showConfirmButton: true,
+                            });
+
+                        }
+                    }
+                });
+            });
+        });
+
+
+    });
+
 </script>
 <?php $this->renderSection('js'); ?>
 </body>

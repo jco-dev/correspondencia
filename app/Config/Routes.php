@@ -9,16 +9,21 @@ use CodeIgniter\Router\RouteCollection;
 // login
 $routes->get('login', 'Auth::index', ['as' => 'login']);
 $routes->post('login', 'Auth::autenticar', ['as' => 'procesar-login']);
+$routes->get('cerrar-sesion', 'Auth::salir', ['as' => 'cerrar-sesion', 'filter' => 'auth:ADMINISTRADOR,USUARIO']);
 
-// Inicio
 
-$routes->group('', ['filter' => 'auth:ADMINISTRADOR,USUARIO'], function ($routes){
+$routes->group('', ['filter' => 'auth:ADMINISTRADOR,USUARIO'], function ($routes) {
+    // Inicio
     $routes->get('/', 'Home::index');
     $routes->get('inicio', 'Home::index');
+
+    // Cambiar clave
+    $routes->get('vista-cambiar-password', 'Auth::vistaCambiarClave', ['as' => 'vista-cambiar-password']);
+    $routes->post('actualizar-clave', 'Auth::actualizarClaveUsuario', ['as' => 'actualizar-clave']);
 });
 
 
-$routes->group('', ['filter' => 'auth:ADMINISTRADOR'], function ($routes){
+$routes->group('', ['filter' => 'auth:ADMINISTRADOR'], function ($routes) {
     // Rutas para personas
     $routes->get('listado-personas', 'Persona::index', ['as' => 'listado-personas']);
     $routes->get('listado-personas-ajax', 'Persona::listadoPersonasAjax', ['as' => 'listado-personas-ajax']);

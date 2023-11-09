@@ -144,10 +144,10 @@ $(document).ready(function () {
                                     icon: "error",
                                     showConfirmButton: true,
                                 });
-
                             }
                         }
                     });
+
                 });
 
             }

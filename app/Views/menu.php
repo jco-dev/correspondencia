@@ -35,18 +35,21 @@
         <li class="sidebar-title">
             ARCHIVOS
         </li>
-        <li>
-            <a href="#"><i class="material-icons-two-tone">color_lens</i>Styles<i
-                        class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
+        <li class="open">
+            <a href="#"><i class="material-icons-two-tone">cloud_queue</i>Archivos
+                <i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
             <ul class="sub-menu">
                 <li>
-                    <a href="styles-typography.html">Typography</a>
+                    <a href="<?= base_url(route_to('listado-documentos'))?>">Documentos</a>
                 </li>
                 <li>
-                    <a href="styles-code.html">Code</a>
+                    <a href="styles-typography.html">Archivados</a>
                 </li>
                 <li>
-                    <a href="styles-icons.html">Icons</a>
+                    <a href="styles-code.html">Enviados</a>
+                </li>
+                <li>
+                    <a href="styles-icons.html">Recibidos</a>
                 </li>
             </ul>
         </li>

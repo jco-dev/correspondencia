@@ -24,6 +24,9 @@ class Auth extends BaseController
             if (password_verify($clave, $usuario->clave)) {
 
                 $persona = model('PersonaModel')->find($usuario->id_usuario);
+                $id_oficina_persona = model('AsignacionOficinaModel')->where(['id_persona' => $persona->id_persona, 'estado' => 'REGISTRADO'])->first();
+                if ($id_oficina_persona)
+                    $session->set('id_oficina', $id_oficina_persona->id_oficina);
 
                 $session->set([
                     'id' => $persona->id_persona,

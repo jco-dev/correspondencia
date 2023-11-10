@@ -20,6 +20,16 @@ $routes->group('', ['filter' => 'auth:ADMINISTRADOR,USUARIO'], function ($routes
     // Cambiar clave
     $routes->get('vista-cambiar-password', 'Auth::vistaCambiarClave', ['as' => 'vista-cambiar-password']);
     $routes->post('actualizar-clave', 'Auth::actualizarClaveUsuario', ['as' => 'actualizar-clave']);
+
+    // Rutas de documentos
+    $routes->get('listado-documentos', 'Documentos::index', ['as' => 'listado-documentos']);
+    $routes->get('listado-documentos-ajax', 'Documentos::listadoDocumentosAjax', ['as' => 'listado-documentos-ajax']);
+    $routes->post('crear-documento', 'Documentos::vistaAgregar', ['as' => 'crear-documento']);
+    $routes->post('registro-documento', 'Documentos::store', ['as' => 'registro-documento']);
+    $routes->post('editar-documento', 'Documentos::edit', ['as' => 'editar-documento']);
+    $routes->post('actualizar-documento', 'Documentos::update', ['as' => 'actualizar-documento']);
+    $routes->get('descargar-documento/(:num)', 'Documentos::descargar/$1', ['as' => 'descargar-documento']);
+    $routes->post('eliminar-archivo', 'Documentos::eliminarArchivo', ['as' => 'eliminar-archivo']);
 });
 
 

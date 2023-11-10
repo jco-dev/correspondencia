@@ -43,14 +43,18 @@
                     <a href="<?= base_url(route_to('listado-documentos'))?>">Documentos</a>
                 </li>
                 <li>
-                    <a href="styles-typography.html">Archivados</a>
+                    <a href="<?= base_url(route_to('listado-hoja-ruta'))?>">Generar Hoja de Ruta</a>
                 </li>
                 <li>
                     <a href="styles-code.html">Enviados</a>
                 </li>
                 <li>
-                    <a href="styles-icons.html">Recibidos</a>
+                    <a href="styles-icons.html">Pendientes</a>
                 </li>
+                <li>
+                    <a href="styles-typography.html">Archivados</a>
+                </li>
+
             </ul>
         </li>
     </ul>

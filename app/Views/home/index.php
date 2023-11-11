@@ -9,7 +9,8 @@
         </div>
         <div class="card">
             <div class="card-body">
-                Bienvenidos al Sistema de Correspondencia
+                <h1 class="text-center text-uppercase d-block" style="color: blue; font-size: x-large;">Bienvenidos al Sistema de Correspondencia</h1>
+                <img width="100%" src="<?= base_url('/neptune/source/assets/images/backgrounds/fondo.jpeg')?>" alt="" />
             </div>
         </div>
     </div>

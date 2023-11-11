@@ -163,6 +163,7 @@ class EnvioHojaRuta extends BaseController
                 'id_oficina_envio' => session()->get('id_oficina'),
                 'id_oficina_destino' => $this->request->getPost('id_oficina_destino'),
                 'fecha_envio' => date('Y-m-d H:i:s'),
+                'prioridad' => $this->request->getPost('prioridad'),
                 'estado' => 'REGISTRADO'
             ];
 
@@ -425,4 +426,82 @@ class EnvioHojaRuta extends BaseController
             return $this->response->setJSON(['exito' => false, 'msg' => 'No se pudo desarchivar el documento']);
     }
 
+    public  function vistaRemitir(): ResponseInterfaceAlias
+    {
+        $id_envio_hoja_ruta = $this->request->getGet('id');
+
+        $envioHojaRuta = $this->model->find($id_envio_hoja_ruta);
+
+        $documentos = model('App\Models\DocumentosModel')
+            ->where(['estado' => 'REGISTRADO', 'id_oficina' => session()->get('id_oficina')])->findAll();
+
+        $nombre_oficina = model('App\Models\OficinaModel')
+            ->where(['id_oficina' => session()->get('id_oficina')])->first()->nombre;
+
+        $asignacion = model('App\Models\AsignacionOficinaModel')
+            ->where(['id_oficina' => session()->get('id_oficina'), 'cargo' => 'JEFE'])->first();
+
+        $nombreJefe = model('App\Models\PersonaModel')
+            ->where(['id_persona' => $asignacion->id_persona])->first();
+
+        $oficinas = model('App\Models\OficinaModel')
+            ->where(['id_oficina !=' => session()->get('id_oficina')])->findAll();
+
+        $vista = view('envio_hoja_ruta/remitir', [
+            'documentos' => $documentos,
+            'oficina_remitente' => $nombre_oficina,
+            'jefe_oficina' => $asignacion->grado_academico . ' ' . $nombreJefe->nombre . ' ' . $nombreJefe->paterno . ' ' . $nombreJefe->materno,
+            'oficinas' => $oficinas,
+            'id' => $id_envio_hoja_ruta,
+        ]);
+        return $this->response->setJSON(['vista' => $vista]);
+    }
+
+    public function RegistroEnvioRemitir(): ResponseInterfaceAlias
+    {
+        $validation = \Config\Services::validation();
+        $validation->setRules([
+            'id_envio_hoja_ruta' => 'required',
+            'id_documento' => 'required',
+            'numero_hojas' => 'required',
+            'id_oficina_destino' => 'required',
+            'prioridad' => 'required'
+        ]);
+
+        if (!$validation->withRequest($this->request)->run()) {
+            return $this->response->setJSON(['validacion' => $validation->getErrors()]);
+        }
+
+        $dataEnvioHojaRuta = $this->model->find($this->request->getPost('id_envio_hoja_ruta'));
+        $this->model->update($this->request->getPost('id_envio_hoja_ruta'), ['estado' => 'REMITIDO']);
+
+        $dataEnvioHojaRuta = [
+            'id_hoja_ruta_documento' => $dataEnvioHojaRuta->id_hoja_ruta_documento,
+            'id_usuario' => session()->get('id'),
+            'id_oficina_envio' => session()->get('id_oficina'),
+            'id_oficina_destino' => $this->request->getPost('id_oficina_destino'),
+            'fecha_envio' => date('Y-m-d H:i:s'),
+            'prioridad' => $this->request->getPost('prioridad'),
+            'estado' => 'REGISTRADO'
+        ];
+
+        $id_envio_hoja_ruta = $this->model->insert($dataEnvioHojaRuta);
+
+        $dataArchivoAdjuntoEnvio = [
+            'id_envio_hoja_ruta' => $id_envio_hoja_ruta,
+            'id_usuario' => session()->get('id'),
+            'nota' => mb_convert_case(trim($this->request->getVar('nota')), MB_CASE_UPPER, "UTF-8"),
+            'numero_hojas' => $this->request->getPost('numero_hojas'),
+            'estado' => 'REGISTRADO'
+        ];
+
+        $modelArchivoAdjuntoEnvio = model('App\Models\ArchivoAdjuntoEnviosModel');
+        $id_archivo_adjunto_envio = $modelArchivoAdjuntoEnvio->insert($dataArchivoAdjuntoEnvio);
+
+        if (is_numeric($id_archivo_adjunto_envio))
+            return $this->response->setJSON(['exito' => true, 'msg' => 'Se ha remitido correctamente el documento']);
+        else
+            return $this->response->setJSON(['exito' => false, 'msg' => 'No se puede remitir el documento']);
+
+    }
 }

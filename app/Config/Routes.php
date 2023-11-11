@@ -48,11 +48,14 @@ $routes->group('', ['filter' => 'auth:ADMINISTRADOR,USUARIO'], function ($routes
     $routes->get('listado-pendientes', 'EnvioHojaRuta::indexPendientes', ['as' => 'listado-pendientes']);
     $routes->get('listado-pendientes-ajax', 'EnvioHojaRuta::listadoPendientesAjax', ['as' => 'listado-pendientes-ajax']);
     $routes->post('archivar-pendiente', 'EnvioHojaRuta::archivarPendiente', ['as' => 'archivar-pendiente']);
+    $routes->get('remitir-pendiente', 'EnvioHojaRuta::vistaRemitir', ['as' => 'remitir-pendiente']);
+    $routes->post('registro-envio-remitir', 'EnvioHojaRuta::RegistroEnvioRemitir', ['as' => 'registro-envio-remitir']);
 
     // Rutas de envios hoja ruta archivados
     $routes->get('listado-archivados', 'EnvioHojaRuta::indexArchivados', ['as' => 'listado-archivados']);
     $routes->get('listado-archivados-ajax', 'EnvioHojaRuta::listadoArchivadosAjax', ['as' => 'listado-archivados-ajax']);
     $routes->post('desarchivar-archivado', 'EnvioHojaRuta::desarchivarArchivado', ['as' => 'desarchivar-archivado']);
+
 });
 
 

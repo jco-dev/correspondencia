@@ -42,7 +42,7 @@
     </div>
     <div class="app-auth-container">
         <div class="logo">
-            <a href="/">Neptune</a>
+            <a href="/">Policia Boliviana Caracollo</a>
         </div>
         <p class="auth-description">Inicie sesión en su cuenta y continúe hasta el panel.</p>
         <?php if(session()->getFlashdata('error')): ?>

@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col">
         <div class="section-description section-description-inline px-0">
-            <h1>Dashboard</h1>
+            <h1>Inicio</h1>
             <span>Página de Inicio</span>
         </div>
         <div class="card">

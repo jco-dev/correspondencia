@@ -44,7 +44,7 @@
 <div class="app align-content-stretch d-flex flex-wrap">
     <div class="app-sidebar">
         <div class="logo">
-            <a href="/" class="logo-icon"><span class="logo-text">Neptune</span></a>
+            <a href="/" class="logo-icon"><span class="logo-text">Fatecipol</span></a>
             <div class="sidebar-user-switcher user-activity-online">
                 <a href="#">
                     <div class="avatar avatar-xs">

@@ -56,6 +56,8 @@ $routes->group('', ['filter' => 'auth:ADMINISTRADOR,USUARIO'], function ($routes
     $routes->get('listado-archivados-ajax', 'EnvioHojaRuta::listadoArchivadosAjax', ['as' => 'listado-archivados-ajax']);
     $routes->post('desarchivar-archivado', 'EnvioHojaRuta::desarchivarArchivado', ['as' => 'desarchivar-archivado']);
 
+    $routes->get('descargar-envio/(:num)', 'EnvioHojaRuta::descargarEnvio/$1', ['as' => 'descargar-envio']);
+
 });
 
 

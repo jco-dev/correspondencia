@@ -54,7 +54,7 @@ class EnvioHojaRuta extends BaseController
                     $button = '';
                     if ($row['estado'] != 'RECIBIDO') {
                         $button = '
-                            <button class="btn btn-sm btn-primary btn-remitir" data-id="' . $d . '">Remitir</button>
+                            <button class="btn btn-sm btn-primary btn-descargar" data-id="' . $d . '">Descargar</button>
                         ';
                     }
                     return $button;
@@ -319,6 +319,7 @@ class EnvioHojaRuta extends BaseController
                         $button = '
                             <button class="btn btn-sm btn-primary btn-remitir" data-id="' . $d . '">Remitir</button>
                             <button class="btn btn-sm btn-warning btn-archivar" data-id="' . $d . '">Archivar</button>
+                            <button class="btn btn-sm btn-secondary btn-descargar" data-id="' . $d . '">Descargar</button>
                         ';
                     }
                     return $button;
@@ -394,6 +395,7 @@ class EnvioHojaRuta extends BaseController
                     return '
                         <p>'.$d.'</p>
                         <button class="btn btn-sm btn-primary btn-desarchivar" data-id="' . $row['id_envio_hoja_ruta'] . '">Desarchivar</button>
+                        <button class="btn btn-sm btn-primary btn-descargar mt-1" data-id="' . $row['id_envio_hoja_ruta'] . '">Descargar</button>
                     ';
                 }
             ]
@@ -503,5 +505,17 @@ class EnvioHojaRuta extends BaseController
         else
             return $this->response->setJSON(['exito' => false, 'msg' => 'No se puede remitir el documento']);
 
+    }
+
+    public function descargarEnvio($id_envio_hoja_ruta): ?\CodeIgniter\HTTP\DownloadResponse
+    {
+        $envioHojaRuta = $this->model->find($id_envio_hoja_ruta);
+        $hojasRutasDocumento = model('App\Models\HojaRutaDocumentoModel')
+            ->where(['id_hoja_ruta_documento' => $envioHojaRuta->id_hoja_ruta_documento])->findAll();
+
+        $documento = model('App\Models\DocumentosModel');
+        $documento = $documento->where(['id_documento' => $hojasRutasDocumento[0]->id_documento])->first();
+        $ruta = WRITEPATH . '/uploads/documentos/' . $documento->archivo;
+        return $this->response->download($ruta, null);
     }
 }

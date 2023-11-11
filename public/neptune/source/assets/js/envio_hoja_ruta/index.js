@@ -77,6 +77,9 @@ $(document).ready(function () {
                 });
             }
         });
+    }).on('click', 'button.btn-descargar', (event) => {
+        let id = $(event.currentTarget).data('id');
+        window.open(`descargar-envio/${id}`, '_blank');
     });
 
     $('.btn-agregar-envio').on('click', function () {

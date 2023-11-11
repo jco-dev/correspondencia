@@ -48,7 +48,7 @@ class Documentos extends BaseController
                 if ($d == 'REGISTRADO')
                     return '<span class="badge badge-success">REGISTRADO</span>';
                 else
-                    return '<span class="badge badge-danger">ELIMINADO</span>';
+                    return '<span class="badge badge-info">ENVIADO</span>';
             }],
             [
                 'db' => 'id_documento',

@@ -30,6 +30,29 @@ $routes->group('', ['filter' => 'auth:ADMINISTRADOR,USUARIO'], function ($routes
     $routes->post('actualizar-documento', 'Documentos::update', ['as' => 'actualizar-documento']);
     $routes->get('descargar-documento/(:num)', 'Documentos::descargar/$1', ['as' => 'descargar-documento']);
     $routes->post('eliminar-archivo', 'Documentos::eliminarArchivo', ['as' => 'eliminar-archivo']);
+
+    // Rutas de envios hoja ruta enviados
+    $routes->get('listado-enviados', 'EnvioHojaRuta::index', ['as' => 'listado-enviados']);
+    $routes->get('listado-enviados-ajax', 'EnvioHojaRuta::listadoEnviadosAjax', ['as' => 'listado-enviados-ajax']);
+    $routes->post('crear-envio', 'EnvioHojaRuta::vistaAgregar', ['as' => 'crear-envio']);
+    $routes->post('cargar-referencia', 'EnvioHojaRuta::referenciaDocumento', ['as' => 'cargar-referencia']);
+    $routes->post('registro-envio', 'EnvioHojaRuta::store', ['as' => 'registro-envio']);
+    $routes->post('cancelar-envio', 'EnvioHojaRuta::cancelarEnvio', ['as' => 'cancelar-envio']);
+
+    // Rutas de envios hoja ruta entrantes
+    $routes->get('listado-entrantes', 'EnvioHojaRuta::indexEntrantes', ['as' => 'listado-entrantes']);
+    $routes->get('listado-entrantes-ajax', 'EnvioHojaRuta::listadoEntrantesAjax', ['as' => 'listado-entrantes-ajax']);
+    $routes->post('recibir-entrante', 'EnvioHojaRuta::recibirEntrante', ['as' => 'recibir-entrante']);
+
+    // Rutas de envios hoja ruta pendientes
+    $routes->get('listado-pendientes', 'EnvioHojaRuta::indexPendientes', ['as' => 'listado-pendientes']);
+    $routes->get('listado-pendientes-ajax', 'EnvioHojaRuta::listadoPendientesAjax', ['as' => 'listado-pendientes-ajax']);
+    $routes->post('archivar-pendiente', 'EnvioHojaRuta::archivarPendiente', ['as' => 'archivar-pendiente']);
+
+    // Rutas de envios hoja ruta archivados
+    $routes->get('listado-archivados', 'EnvioHojaRuta::indexArchivados', ['as' => 'listado-archivados']);
+    $routes->get('listado-archivados-ajax', 'EnvioHojaRuta::listadoArchivadosAjax', ['as' => 'listado-archivados-ajax']);
+    $routes->post('desarchivar-archivado', 'EnvioHojaRuta::desarchivarArchivado', ['as' => 'desarchivar-archivado']);
 });
 
 

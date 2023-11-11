@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class EnvioHojaRutaModel extends Model
 {
-    protected $table            = 'envio_hoja_ruta';
+    protected $table            = 'envios_hojas_rutas';
     protected $primaryKey       = 'id_envio_hoja_ruta';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
@@ -20,6 +20,7 @@ class EnvioHojaRutaModel extends Model
         'fecha_envio',
         'fecha_recepcion',
         'prioridad',
+        'motivo_archivado',
         'estado',
     ];
 

@@ -58,11 +58,11 @@ class HojaRutaDocumento extends Migration
         $this->forge->addKey('id_hoja_ruta_documento', true);
         $this->forge->addForeignKey('id_documento', 'documentos', 'id_documento', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('id_usuario', 'usuarios', 'id_usuario', 'CASCADE', 'CASCADE');
-        $this->forge->createTable('hoja_ruta_documento');
+        $this->forge->createTable('hojas_rutas_documentos');
     }
 
     public function down()
     {
-        $this->forge->dropTable('hoja_ruta_documento');
+        $this->forge->dropTable('hojas_rutas_documentos');
     }
 }

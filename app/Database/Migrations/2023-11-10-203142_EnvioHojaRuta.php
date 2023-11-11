@@ -43,12 +43,12 @@ class EnvioHojaRuta extends Migration
             ],
 
             'fecha_envio' => [
-                'type' => 'DATE',
+                'type' => 'TIMESTAMP',
                 'null' => false,
             ],
 
             'fecha_recepcion' => [
-                'type' => 'DATE',
+                'type' => 'TIMESTAMP',
                 'null' => true,
             ],
 
@@ -56,6 +56,11 @@ class EnvioHojaRuta extends Migration
                 'type' => 'ENUM',
                 'constraint' => ['URGENTE', 'NORMAL'],
                 'null' => false,
+            ],
+
+            'motivo_archivado' => [
+                'type' => 'TEXT',
+                'null' => true,
             ],
 
             'creado_el TIMESTAMP DEFAULT CURRENT_TIMESTAMP',
@@ -74,15 +79,15 @@ class EnvioHojaRuta extends Migration
         ]);
 
         $this->forge->addKey('id_envio_hoja_ruta', true);
-        $this->forge->addForeignKey('id_hoja_ruta_documento', 'hoja_ruta_documento', 'id_hoja_ruta_documento', 'CASCADE', 'CASCADE');
+        $this->forge->addForeignKey('id_hoja_ruta_documento', 'hojas_rutas_documentos', 'id_hoja_ruta_documento', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('id_usuario', 'usuarios', 'id_usuario', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('id_oficina_envio', 'oficinas', 'id_oficina', 'CASCADE', 'CASCADE');
         $this->forge->addForeignKey('id_oficina_destino', 'oficinas', 'id_oficina', 'CASCADE', 'CASCADE');
-        $this->forge->createTable('envio_hoja_ruta');
+        $this->forge->createTable('envios_hojas_rutas');
     }
 
     public function down()
     {
-        $this->forge->dropTable('envio_hoja_ruta');
+        $this->forge->dropTable('envios_hojas_rutas');
     }
 }

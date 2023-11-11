@@ -40,21 +40,20 @@
                 <i class="material-icons has-sub-menu">keyboard_arrow_right</i></a>
             <ul class="sub-menu">
                 <li>
-                    <a href="<?= base_url(route_to('listado-documentos'))?>">Documentos</a>
+                    <a href="<?= base_url(route_to('listado-documentos')) ?>">Documentos</a>
                 </li>
                 <li>
-                    <a href="<?= base_url(route_to('listado-hoja-ruta'))?>">Generar Hoja de Ruta</a>
+                    <a href="<?= base_url(route_to('listado-enviados')) ?>">Enviados</a>
                 </li>
                 <li>
-                    <a href="styles-code.html">Enviados</a>
+                    <a href="<?= base_url(route_to('listado-entrantes')) ?>">Entrantes</a>
                 </li>
                 <li>
-                    <a href="styles-icons.html">Pendientes</a>
+                    <a href="<?= base_url(route_to('listado-pendientes')) ?>">Pendientes</a>
                 </li>
                 <li>
-                    <a href="styles-typography.html">Archivados</a>
+                    <a href="<?= base_url(route_to('listado-archivados')) ?>">Archivados</a>
                 </li>
-
             </ul>
         </li>
     </ul>

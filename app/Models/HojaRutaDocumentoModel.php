@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class HojaRutaDocumentoModel extends Model
 {
-    protected $table            = 'hoja_ruta_documento';
+    protected $table            = 'hojas_rutas_documentos';
     protected $primaryKey       = 'id_hoja_ruta_documento';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
